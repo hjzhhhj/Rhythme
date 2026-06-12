@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'GangwonEduSaeeum';
+  src: url('/fonts/강원교육새음.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display: 'GangwonEduSaeeum', 'Jua', 'Noto Sans KR', sans-serif;
+  --font-handwriting: 'Gaegu', 'GangwonEduSaeeum', 'Jua', sans-serif;
+  --font-body: 'Noto Sans KR', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-display);
+  background: #fff;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
