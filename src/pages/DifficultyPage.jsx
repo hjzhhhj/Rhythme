@@ -1,20 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import { DIFFICULTY_CONFIG } from '../utils/notes';
-import { getRecords, formatTime } from '../utils/storage';
+import React from "react";
+import styled from "styled-components";
+import { DIFFICULTY_CONFIG } from "../utils/notes";
+import { getRecords, formatTime } from "../utils/storage";
 
-const DIFFICULTIES = ['EASY', 'NORMAL', 'HARD', 'HELL'];
+const DIFFICULTIES = ["EASY", "NORMAL", "HARD", "HELL"];
 
 const Page = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 4vh;
 `;
 
 const BgImg = styled.img`
@@ -44,36 +39,44 @@ const TitleEllipse = styled.div`
   width: 80%;
   height: 200%;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 255, 255, 0.92) 30%,
+    rgba(255, 255, 255, 0) 70%
+  );
   filter: blur(20px);
   top: -30%;
 `;
 
 const TitleImg = styled.img`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 10%;
+  left: 15%;
   z-index: 1;
-  width: 100%;
+  width: 70%;
   height: 100%;
   object-fit: cover;
   object-position: center 50%;
 `;
 
 const Cards = styled.div`
-  position: relative;
+  position: absolute;
+  bottom: 20vh;
+  left: 0;
+  right: 0;
   z-index: 2;
   display: flex;
   gap: clamp(10px, 1.8vw, 28px);
   justify-content: center;
-  margin-bottom: 3vh;
+  align-items: center;
 `;
 
 const Card = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: clamp(130px, 17vw, 220px);
+  justify-content: center;
+  width: clamp(150px, 18vw, 240px);
   height: clamp(190px, 25vw, 320px);
   border-radius: 20px;
   padding: 20px 14px 16px;
@@ -81,13 +84,15 @@ const Card = styled.button`
   border: none;
   cursor: pointer;
   background: ${({ $bg }) => $bg};
-  box-shadow: 0 8px 28px rgba(0,0,0,0.14);
-  transition: transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  transition:
+    transform 0.18s,
+    box-shadow 0.18s;
   gap: 8px;
 
   &:hover {
     transform: translateY(-10px) scale(1.06);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
   }
 
   &:active {
@@ -99,7 +104,7 @@ const DiffLabel = styled.span`
   font-family: var(--font-display);
   font-size: clamp(18px, 2.5vw, 38px);
   letter-spacing: 1px;
-  align-self: flex-start;
+  text-align: center;
 `;
 
 const DiffIcon = styled.span`
@@ -115,25 +120,30 @@ const DiffBest = styled.span`
   font-family: var(--font-body);
   font-size: clamp(10px, 1.1vw, 14px);
   opacity: 0.9;
-  background: rgba(255,255,255,0.28);
+  background: rgba(255, 255, 255, 0.28);
   border-radius: 8px;
   padding: 3px 10px;
   white-space: nowrap;
+  text-align: center;
 `;
 
 const BackBtn = styled.button`
-  position: relative;
+  position: absolute;
+  bottom: 4vh;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
   background: none;
   border: none;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255, 255, 255, 0.85);
   font-family: var(--font-display);
   font-size: clamp(14px, 1.8vw, 22px);
   padding: 8px 20px;
   border-radius: 8px;
   cursor: pointer;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   transition: color 0.15s;
+  white-space: nowrap;
 
   &:hover {
     color: #fff;
@@ -148,10 +158,13 @@ export default function DifficultyPage({ onSelect, onBack }) {
       <BgImg src="/assets/bg-difficulty.png" alt="" aria-hidden="true" />
       <TitleWrap>
         <TitleEllipse aria-hidden="true" />
-        <TitleImg src="/assets/title-difficulty.png" alt="난이도를 선택하세요!" />
+        <TitleImg
+          src="/assets/title-difficulty.png"
+          alt="난이도를 선택하세요!"
+        />
       </TitleWrap>
       <Cards>
-        {DIFFICULTIES.map(diff => {
+        {DIFFICULTIES.map((diff) => {
           const cfg = DIFFICULTY_CONFIG[diff];
           const best = records.best[diff];
           return (
