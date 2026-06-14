@@ -1,20 +1,43 @@
 import React from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import { NOTE_DATA } from '../utils/notes';
-import './Staff.css';
 
 const W = 560;
 const H = 240;
 const STAFF_LEFT = 80;
 const STAFF_RIGHT = 480;
-const STAFF_BOTTOM = 180; // y of line 1 (E4)
-const STEP_H = 13;        // pixels per staff step
+const STAFF_BOTTOM = 180;
+const STEP_H = 13;
 
-// Staff lines: steps 0, 2, 4, 6, 8 → E4, G4, B4, D5, F5
 const LINES = [0, 2, 4, 6, 8].map(s => STAFF_BOTTOM - s * STEP_H);
 
 function getNoteY(step) {
   return STAFF_BOTTOM - step * STEP_H;
 }
+
+const shake = keyframes`
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
+`;
+
+const StaffSvg = styled.svg`
+  display: block;
+  transition: filter 0.15s;
+
+  ${({ $feedback }) => $feedback === 'correct' && css`
+    .note-head {
+      filter: drop-shadow(0 0 8px #4CAF50);
+    }
+  `}
+
+  ${({ $feedback }) => $feedback === 'wrong' && css`
+    .note-head {
+      filter: drop-shadow(0 0 8px #e53935);
+      animation: ${shake} 0.3s ease;
+    }
+  `}
+`;
 
 export default function Staff({ noteKey, feedback }) {
   const note = noteKey ? NOTE_DATA[noteKey] : null;
@@ -28,13 +51,12 @@ export default function Staff({ noteKey, feedback }) {
     : '#2d2d2d';
 
   return (
-    <svg
-      className={`staff-svg${feedback ? ` staff-${feedback}` : ''}`}
+    <StaffSvg
+      $feedback={feedback}
       viewBox={`0 0 ${W} ${H}`}
       width="100%"
       height="100%"
     >
-      {/* Staff lines */}
       {LINES.map((y, i) => (
         <line
           key={i}
@@ -44,7 +66,6 @@ export default function Staff({ noteKey, feedback }) {
         />
       ))}
 
-      {/* Treble clef */}
       <text
         x="55" y={STAFF_BOTTOM + 12}
         fontSize="130"
@@ -57,7 +78,6 @@ export default function Staff({ noteKey, feedback }) {
 
       {note && (
         <>
-          {/* Ledger line for C4 */}
           {note.ledger === 'below' && (
             <line
               x1={noteX - 22} y1={noteY}
@@ -66,7 +86,6 @@ export default function Staff({ noteKey, feedback }) {
             />
           )}
 
-          {/* Extra ledger lines if above staff (step > 8) */}
           {note.staffStep > 8 && [9, 10].filter(s => s <= note.staffStep && s % 2 === 1 === false).map(s => (
             <line
               key={s}
@@ -76,7 +95,6 @@ export default function Staff({ noteKey, feedback }) {
             />
           ))}
 
-          {/* Note head */}
           <ellipse
             cx={noteX}
             cy={noteY}
@@ -87,7 +105,6 @@ export default function Staff({ noteKey, feedback }) {
             className="note-head"
           />
 
-          {/* Stem */}
           {stemUp ? (
             <line
               x1={noteX + 12} y1={noteY - 2}
@@ -102,7 +119,6 @@ export default function Staff({ noteKey, feedback }) {
             />
           )}
 
-          {/* Octave indicator for 5th octave notes */}
           {note.octave === 5 && (
             <text
               x={noteX + 22}
@@ -116,6 +132,6 @@ export default function Staff({ noteKey, feedback }) {
           )}
         </>
       )}
-    </svg>
+    </StaffSvg>
   );
 }
