@@ -1,5 +1,5 @@
 import React from 'react';
-import './MusicBackground.css';
+import styled, { keyframes } from 'styled-components';
 
 const NOTES = ['♩', '♪', '♫', '♬', '𝄞', '♭', '♯', '★', '✦', '·'];
 const COLORS = ['#fa94c0', '#99c5fc', '#95d5b4', '#bba4ee', '#ffda60', '#f9a8d4', '#86efac', '#93c5fd', '#c4b5fd'];
@@ -44,13 +44,33 @@ const POSITIONS = [
   { top: '48%', left: '88%', size: 14, color: 0, note: 2, delay: 0.3 },
 ];
 
+const bgFloat = keyframes`
+  0%   { transform: translateY(0px) rotate(-8deg); }
+  100% { transform: translateY(-8px) rotate(8deg); }
+`;
+
+const BgWrapper = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+`;
+
+const Note = styled.span`
+  position: absolute;
+  user-select: none;
+  animation: ${bgFloat} 3s ease-in-out infinite alternate;
+  opacity: 0.85;
+  font-family: 'Noto Sans KR', sans-serif;
+`;
+
 export default function MusicBackground() {
   return (
-    <div className="music-bg" aria-hidden="true">
+    <BgWrapper aria-hidden="true">
       {POSITIONS.map((p, i) => (
-        <span
+        <Note
           key={i}
-          className="music-bg-note"
           style={{
             top: p.top,
             left: p.left,
@@ -60,8 +80,8 @@ export default function MusicBackground() {
           }}
         >
           {NOTES[p.note % NOTES.length]}
-        </span>
+        </Note>
       ))}
-    </div>
+    </BgWrapper>
   );
 }
