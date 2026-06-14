@@ -72,7 +72,8 @@ const TitleImg = styled.img`
 
 const Cards = styled.div`
   position: absolute;
-  bottom: 20vh;
+  top: 38%;
+  bottom: 10vh;
   left: 0;
   right: 0;
   z-index: 2;
@@ -80,10 +81,12 @@ const Cards = styled.div`
   gap: clamp(10px, 1.8vw, 28px);
   justify-content: center;
   align-items: center;
+  align-content: center;
 
   @media (max-width: 640px) {
-    flex-wrap: wrap;
+    top: 35%;
     bottom: 8vh;
+    flex-wrap: wrap;
     gap: 10px;
     padding: 0 20px;
   }
@@ -94,8 +97,8 @@ const Card = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: clamp(150px, 18vw, 240px);
-  height: clamp(190px, 25vw, 320px);
+  width: clamp(150px, 18vw, 280px);
+  height: clamp(190px, 26vw, 370px);
   border-radius: 20px;
   padding: 20px 14px 16px;
   color: #fff;
@@ -137,7 +140,7 @@ const DiffLabel = styled.span`
 `;
 
 const DiffIcon = styled.span`
-  font-size: clamp(60px, 9vw, 130px);
+  font-size: clamp(60px, 9vw, 160px);
   line-height: 1;
   flex: 1;
   display: flex;
