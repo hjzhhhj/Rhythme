@@ -36,8 +36,8 @@ const Center = styled.div`
 
 const Ellipse = styled.div`
   position: absolute;
-  width: 140%;
-  height: 250%;
+  width: 130%;
+  height: 200%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse,
@@ -49,10 +49,10 @@ const Ellipse = styled.div`
 `;
 
 const Logo = styled.img`
-  margin-top: -12vh;
+  margin-top: -18vh;
   position: relative;
   z-index: 1;
-  width: 120%;
+  width: 140%;
   height: auto;
   object-fit: contain;
   object-position: center 35%;
@@ -62,12 +62,12 @@ const Logo = styled.img`
 const StartBtn = styled.button`
   position: relative;
   z-index: 1;
-  padding: 4px 36px;
+  padding: 8px 48px;
   background: #fa94c0;
   color: #fff;
   font-family: "GangwonEduSaeeum", sans-serif;
-  margin-top: -24vh;
-  font-size: clamp(24px, 5vw, 42px);
+  margin-top: -27vh;
+  font-size: clamp(28px, 6vw, 48px);
   font-weight: 200;
   border-radius: 12px;
   border: none;
