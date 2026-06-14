@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Page = styled.div`
   position: relative;
@@ -27,9 +27,11 @@ const Center = styled.div`
   width: 65%;
   max-width: 900px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5vh;
+  gap: 0;
+  margin-top: -10vh;
 `;
 
 const Ellipse = styled.div`
@@ -37,17 +39,21 @@ const Ellipse = styled.div`
   width: 140%;
   height: 250%;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0) 75%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 255, 255, 0.95) 30%,
+    rgba(255, 255, 255, 0) 75%
+  );
   filter: blur(30px);
   pointer-events: none;
 `;
 
 const Logo = styled.img`
+  margin-top: -12vh;
   position: relative;
   z-index: 1;
-  width: 100%;
+  width: 120%;
   height: auto;
-  max-height: 38vh;
   object-fit: contain;
   object-position: center 35%;
   filter: drop-shadow(0 4px 20px rgba(250, 148, 192, 0.2));
@@ -56,21 +62,25 @@ const Logo = styled.img`
 const StartBtn = styled.button`
   position: relative;
   z-index: 1;
-  padding: 16px 48px;
+  padding: 4px 36px;
   background: #fa94c0;
   color: #fff;
-  font-family: var(--font-display);
-  font-size: clamp(20px, 3vw, 38px);
+  font-family: "GangwonEduSaeeum", sans-serif;
+  margin-top: -24vh;
+  font-size: clamp(24px, 5vw, 42px);
+  font-weight: 200;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   letter-spacing: 1px;
   box-shadow: 0 6px 24px rgba(250, 148, 192, 0.5);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 
   &:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 10px 30px rgba(250, 148, 192, 0.6);
+    transform: translateY(-0.25px) scale(1.04);
+    box-shadow: 0 6px 24px rgba(250, 148, 192, 0.6);
   }
 
   &:active {
@@ -85,8 +95,8 @@ export default function HomePage({ onStart }) {
       <Center>
         <Ellipse aria-hidden="true" />
         <Logo src="/assets/logo-rhythme.png" alt="Rhythme" />
+        <StartBtn onClick={onStart}>리듬타러가기 ♫</StartBtn>
       </Center>
-      <StartBtn onClick={onStart}>리듬타러가기 ♫</StartBtn>
     </Page>
   );
 }
