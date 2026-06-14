@@ -32,6 +32,11 @@ const Center = styled.div`
   justify-content: center;
   gap: 0;
   margin-top: -10vh;
+
+  @media (max-width: 640px) {
+    width: 90%;
+    margin-top: -4vh;
+  }
 `;
 
 const Ellipse = styled.div`
@@ -49,14 +54,19 @@ const Ellipse = styled.div`
 `;
 
 const Logo = styled.img`
-  margin-top: -18vh;
+  margin-top: -12vh;
   position: relative;
   z-index: 1;
-  width: 140%;
+  width: 120%;
   height: auto;
   object-fit: contain;
   object-position: center 35%;
   filter: drop-shadow(0 4px 20px rgba(250, 148, 192, 0.2));
+
+  @media (max-width: 640px) {
+    margin-top: -8vh;
+    width: 100%;
+  }
 `;
 
 const StartBtn = styled.button`
@@ -66,7 +76,7 @@ const StartBtn = styled.button`
   background: #fa94c0;
   color: #fff;
   font-family: "GangwonEduSaeeum", sans-serif;
-  margin-top: -27vh;
+  margin-top: -22vh;
   font-size: clamp(28px, 6vw, 48px);
   font-weight: 200;
   border-radius: 12px;
@@ -85,6 +95,12 @@ const StartBtn = styled.button`
 
   &:active {
     transform: translateY(1px) scale(0.97);
+  }
+
+  @media (max-width: 640px) {
+    margin-top: -16vh;
+    font-size: clamp(22px, 7vw, 36px);
+    padding: 8px 32px;
   }
 `;
 
