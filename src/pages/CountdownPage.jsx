@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled, { keyframes, css } from 'styled-components';
+import React, { useState, useEffect } from "react";
+import styled, { keyframes, css } from "styled-components";
 
 const countPop = keyframes`
   0%   { transform: scale(2.0) rotate(-5deg); opacity: 0; }
@@ -42,9 +42,9 @@ const BgOverlay = styled.div`
 
 const TitleWrap = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 10%;
+  left: 25%;
+  width: 50%;
   height: 38%;
   z-index: 1;
   pointer-events: none;
@@ -56,12 +56,16 @@ const TitleWrap = styled.div`
 
 const TitleEllipse = styled.div`
   position: absolute;
-  width: 70%;
-  height: 250%;
+  width: 150%;
+  height: 200%;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.9) 25%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
   filter: blur(25px);
-  top: -80%;
+  top: -20%;
 `;
 
 const TitleImg = styled.img`
@@ -79,25 +83,28 @@ const CountNumber = styled.div`
   position: relative;
   z-index: 2;
   line-height: 1;
-  margin-top: 4vh;
+  margin-top: 12vh;
   user-select: none;
 
-  ${({ $isGo }) => $isGo ? css`
-    font-family: var(--font-display);
-    font-size: clamp(80px, 14vw, 200px);
-    color: #fa94c0;
-    -webkit-text-stroke: clamp(3px, 0.4vw, 6px) #e85fa0;
-    filter: drop-shadow(0 8px 24px rgba(250, 148, 192, 0.55));
-    animation: ${goPopIn} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-  ` : css`
-    font-family: var(--font-handwriting);
-    font-size: clamp(160px, 28vw, 380px);
-    font-weight: 700;
-    color: #ffda60;
-    -webkit-text-stroke: clamp(4px, 0.6vw, 8px) #f5a623;
-    filter: drop-shadow(0 8px 24px rgba(245, 166, 35, 0.5));
-    animation: ${countPop} 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-  `}
+  ${({ $isGo }) =>
+    $isGo
+      ? css`
+          font-family: var(--font-display);
+          font-size: clamp(80px, 14vw, 200px);
+          color: #fa94c0;
+          -webkit-text-stroke: clamp(3px, 0.4vw, 6px) #e85fa0;
+          filter: drop-shadow(0 8px 24px rgba(250, 148, 192, 0.55));
+          animation: ${goPopIn} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        `
+      : css`
+          font-family: var(--font-handwriting);
+          font-size: clamp(100px, 18vw, 240px);
+          font-weight: 700;
+          color: #ffda60;
+          -webkit-text-stroke: clamp(4px, 0.6vw, 8px) #f5a623;
+          filter: drop-shadow(0 8px 24px rgba(245, 166, 35, 0.5));
+          animation: ${countPop} 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+        `}
 `;
 
 export default function CountdownPage({ onDone }) {
@@ -108,7 +115,7 @@ export default function CountdownPage({ onDone }) {
       const t = setTimeout(onDone, 450);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setCount(c => c - 1), 900);
+    const t = setTimeout(() => setCount((c) => c - 1), 900);
     return () => clearTimeout(t);
   }, [count, onDone]);
 
@@ -121,7 +128,7 @@ export default function CountdownPage({ onDone }) {
         <TitleImg src="/assets/title-countdown.png" alt="준비하세요!" />
       </TitleWrap>
       <CountNumber $isGo={count === 0} key={count}>
-        {count === 0 ? 'GO!' : count}
+        {count === 0 ? "GO!" : count}
       </CountNumber>
     </Page>
   );
