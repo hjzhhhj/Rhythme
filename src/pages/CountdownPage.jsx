@@ -52,6 +52,12 @@ const TitleWrap = styled.div`
   align-items: flex-end;
   justify-content: center;
   padding-bottom: 2%;
+
+  @media (max-width: 640px) {
+    left: 10%;
+    width: 80%;
+    height: 32%;
+  }
 `;
 
 const TitleEllipse = styled.div`
@@ -90,18 +96,18 @@ const CountNumber = styled.div`
     $isGo
       ? css`
           font-family: var(--font-display);
-          font-size: clamp(80px, 14vw, 200px);
+          font-size: clamp(60px, 14vw, 200px);
           color: #fa94c0;
-          -webkit-text-stroke: clamp(3px, 0.4vw, 6px) #e85fa0;
+          -webkit-text-stroke: clamp(2px, 0.4vw, 6px) #e85fa0;
           filter: drop-shadow(0 8px 24px rgba(250, 148, 192, 0.55));
           animation: ${goPopIn} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
         `
       : css`
           font-family: var(--font-handwriting);
-          font-size: clamp(100px, 18vw, 240px);
+          font-size: clamp(80px, 18vw, 240px);
           font-weight: 700;
           color: #ffda60;
-          -webkit-text-stroke: clamp(4px, 0.6vw, 8px) #f5a623;
+          -webkit-text-stroke: clamp(3px, 0.6vw, 8px) #f5a623;
           filter: drop-shadow(0 8px 24px rgba(245, 166, 35, 0.5));
           animation: ${countPop} 0.85s cubic-bezier(0.22, 1, 0.36, 1);
         `}

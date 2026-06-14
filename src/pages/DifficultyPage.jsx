@@ -32,6 +32,10 @@ const TitleWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 640px) {
+    height: 35%;
+  }
 `;
 
 const TitleEllipse = styled.div`
@@ -57,6 +61,13 @@ const TitleImg = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center 50%;
+
+  @media (max-width: 640px) {
+    left: 5%;
+    width: 90%;
+    object-fit: contain;
+    object-position: center center;
+  }
 `;
 
 const Cards = styled.div`
@@ -69,6 +80,13 @@ const Cards = styled.div`
   gap: clamp(10px, 1.8vw, 28px);
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 640px) {
+    flex-wrap: wrap;
+    bottom: 8vh;
+    gap: 10px;
+    padding: 0 20px;
+  }
 `;
 
 const Card = styled.button`
@@ -98,6 +116,13 @@ const Card = styled.button`
   &:active {
     transform: translateY(2px) scale(0.96);
   }
+
+  @media (max-width: 640px) {
+    width: calc(50% - 5px);
+    height: clamp(110px, 36vw, 160px);
+    padding: 12px 10px 10px;
+    border-radius: 16px;
+  }
 `;
 
 const DiffLabel = styled.span`
@@ -105,6 +130,10 @@ const DiffLabel = styled.span`
   font-size: clamp(18px, 2.5vw, 38px);
   letter-spacing: 1px;
   text-align: center;
+
+  @media (max-width: 640px) {
+    font-size: clamp(14px, 4.5vw, 22px);
+  }
 `;
 
 const DiffIcon = styled.span`
@@ -114,6 +143,10 @@ const DiffIcon = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 640px) {
+    font-size: clamp(36px, 11vw, 56px);
+  }
 `;
 
 const DiffBest = styled.span`
