@@ -39,7 +39,7 @@ const BgOverlay = styled.div`
 
 const TitleWrap = styled.div`
   position: absolute;
-  top: 10%;
+  top: 00%;
   left: 50%;
   width: min(58vw, 720px);
   height: 29%;
@@ -55,17 +55,22 @@ const TitleWrap = styled.div`
   }
 `;
 
+
+
 const TitleEllipse = styled.div`
   position: absolute;
-  width: 140%;
-  height: 190%;
+  width: 70%;
+  height: 80%;
+  top: 10%;
+  justify-self: center;
   border-radius: 50%;
   background: radial-gradient(
     ellipse,
-    rgba(255, 255, 255, 0.9) 44%,
-    rgba(255, 255, 255, 0) 72%
+    rgba(255, 255, 255, 0.94) 100%,
+    rgba(255, 255, 255, 0) 100%
   );
-  filter: blur(25px);
+  filter: blur(20px);
+  pointer-events: none;
 `;
 
 const TitleImg = styled.img`
@@ -127,8 +132,8 @@ export default function CountdownPage({ onDone }) {
     <Page>
       <BgImg src="/assets/bg-countdown.png" alt="" aria-hidden="true" />
       <BgOverlay aria-hidden="true" />
+      <TitleEllipse aria-hidden="true" />
       <TitleWrap>
-        <TitleEllipse aria-hidden="true" />
         <TitleImg src="/assets/title-countdown.png" alt="준비하세요!" />
       </TitleWrap>
       <CountPosition>

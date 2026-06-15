@@ -25,33 +25,21 @@ const BgImg = styled.img`
 const TitleWrap = styled.div`
   position: absolute;
   z-index: 1;
-  top: 8%;
   left: 50%;
-  width: min(62vw, 740px);
-  height: 28%;
+  width: min(66vw, 880px);
+  height: clamp(116px, 21vh, 180px);
   transform: translateX(-50%);
   pointer-events: none;
   display: grid;
   place-items: center;
 
-  @media (max-height: 620px) {
-    top: 5%;
-    height: 26%;
+  @media (max-width: 760px) {
+    top: 8vh;
+    width: 86vw;
+    height: 20vh;
   }
 `;
 
-const TitleEllipse = styled.div`
-  position: absolute;
-  width: 128%;
-  height: 180%;
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse,
-    rgba(255, 255, 255, 0.92) 26%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  filter: blur(20px);
-`;
 
 const TitleImg = styled.img`
   position: relative;
@@ -65,24 +53,19 @@ const TitleImg = styled.img`
 const Cards = styled.div`
   position: absolute;
   z-index: 2;
-  top: 51%;
+  top: clamp(300px, 44vh, 360px);
   left: 50%;
-  width: min(86vw, 1060px);
+  width: min(88vw, 1200px);
   transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(4, minmax(120px, 1fr));
-  gap: clamp(18px, 2.4vw, 32px);
-  justify-content: center;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: clamp(24px, 2.4vw, 36px);
 
-  align-items: center;
-  align-content: center;
-
-  @media (max-width: 640px) {
-    top: 35%;
-    bottom: 8vh;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0 20px;
+  @media (max-width: 820px) {
+    top: 36vh;
+    width: min(82vw, 560px);
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 16px;
   }
 `;
 
@@ -90,21 +73,18 @@ const Card = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: clamp(150px, 18vw, 280px);
-  height: clamp(190px, 26vw, 370px);
-  border-radius: 20px;
-  padding: 20px 14px 16px;
+  justify-content: flex-start;
+  min-width: 0;
+  aspect-ratio: 0.89;
+  border-radius: 12px;
+  padding: clamp(28px, 3.8vh, 40px) clamp(12px, 1.4vw, 18px) clamp(24px, 3.8vh, 36px);
   color: #fff;
   background: ${({ $bg }) => $bg};
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transition:
-    transform 0.18s,
-    box-shadow 0.18s;
+  box-shadow: none;
+  transition: transform 0.18s;
 
   &:hover {
-    transform: translateY(-8px) scale(1.035);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+    transform: translateY(-7px) scale(1.025);
   }
 
   &:active {
@@ -114,19 +94,22 @@ const Card = styled.button`
 
 const DiffLabel = styled.span`
   font-family: var(--font-display);
-  font-size: clamp(20px, min(2.3vw, 4.2vh), 34px);
+  font-size: clamp(27px, min(2.8vw, 5vh), 43px);
   line-height: 1;
   letter-spacing: 1px;
   text-align: center;
 `;
 
 const DiffIcon = styled.span`
-  font-size: clamp(60px, 9vw, 160px);
+  font-family: var(--font-musical);
+  font-size: clamp(92px, min(9.5vw, 16vh), 150px);
   line-height: 1;
   flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: clamp(22px, 3.2vh, 34px);
 `;
 
 const DiffBest = styled.span`
@@ -144,7 +127,7 @@ const BackBtn = styled.button`
   position: absolute;
   z-index: 2;
   left: 50%;
-  bottom: 4%;
+  bottom: 3.5vh;
   transform: translateX(-50%);
   background: none;
   color: rgba(255, 255, 255, 0.85);
@@ -169,7 +152,6 @@ export default function DifficultyPage({ onSelect, onBack }) {
     <Page>
       <BgImg src="/assets/bg-difficulty.png" alt="" aria-hidden="true" />
       <TitleWrap>
-        <TitleEllipse aria-hidden="true" />
         <TitleImg src="/assets/title-difficulty.png" alt="난이도를 선택하세요!" />
       </TitleWrap>
       <Cards>
@@ -180,7 +162,7 @@ export default function DifficultyPage({ onSelect, onBack }) {
             <Card key={diff} $bg={cfg.color} onClick={() => onSelect(diff)}>
               <DiffLabel>{cfg.label}</DiffLabel>
               <DiffIcon>{cfg.icon}</DiffIcon>
-              {best != null && <DiffBest>🏆 {formatTime(best)}</DiffBest>}
+              {best != null && <DiffBest>🔥 {formatTime(best)}</DiffBest>}
             </Card>
           );
         })}

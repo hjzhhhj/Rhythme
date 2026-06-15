@@ -108,9 +108,9 @@ export const DIFFICULTY_POOLS = {
 
 export const DIFFICULTY_CONFIG = {
   EASY: { color: '#95d5b4', label: 'EASY', icon: '♩', textColor: '#fff' },
-  NORMAL: { color: '#99c5fc', label: 'NORMAL', icon: '♩', textColor: '#fff' },
-  HARD: { color: '#bba4ee', label: 'HARD', icon: '♩', textColor: '#fff' },
-  HELL: { color: '#fa94c0', label: 'HELL', icon: '♩', textColor: '#fff' },
+  NORMAL: { color: '#99c5fc', label: 'NORMAL', icon: '♪', textColor: '#fff' },
+  HARD: { color: '#bba4ee', label: 'HARD', icon: '♫', textColor: '#fff' },
+  HELL: { color: '#fa94c0', label: 'HELL', icon: '☺', textColor: '#fff' },
 };
 
 export const KEY_MAP = {
