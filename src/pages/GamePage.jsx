@@ -210,36 +210,90 @@ const ResultOverlay = styled.div`
   inset: 0;
   z-index: 10;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  background: rgba(255, 255, 255, 0.72);
+  padding: clamp(18px, 4vw, 48px);
+  background: rgba(70, 70, 70, 0.34);
   color: ${COLORS.pink};
   text-align: center;
-  backdrop-filter: blur(3px);
+  backdrop-filter: grayscale(0.28);
+`;
+
+const ResultCard = styled.div`
+  width: min(680px, 90vw);
+  min-height: min(740px, 86vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(72px, 11vh, 104px) clamp(26px, 5vw, 72px)
+    clamp(52px, 8vh, 78px);
+  border-radius: clamp(24px, 3vw, 34px);
+  background: #fff;
+
+  @media (max-width: 720px) {
+    min-height: min(560px, 82vh);
+    padding-top: 58px;
+  }
+`;
+
+const ResultTitleImage = styled.img`
+  width: min(620px, 86%);
+  height: auto;
+  object-fit: contain;
+  margin-bottom: clamp(30px, 5vh, 46px);
 `;
 
 const ResultTitle = styled.div`
-  font-size: clamp(66px, 9vw, 150px);
+  color: ${COLORS.outline};
+  font-size: clamp(58px, 8vw, 108px);
   line-height: 0.9;
+  margin-bottom: clamp(30px, 5vh, 46px);
+`;
+
+const ResultHearts = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 38px);
+  height: clamp(72px, 10vw, 104px);
+`;
+
+const ResultHeart = styled.span`
+  color: #eb7d79;
+  font-size: clamp(76px, 10vw, 118px);
+  line-height: 0.7;
+  opacity: ${({ $active }) => ($active ? 1 : 0.3)};
+  user-select: none;
 `;
 
 const ResultMeta = styled.div`
-  color: ${COLORS.time};
-  font-size: clamp(38px, 5vw, 82px);
+  color: #eb7d79;
+  font-size: clamp(34px, 4.2vw, 50px);
   line-height: 1;
+  margin-top: 14px;
+`;
+
+const ResultTime = styled.div`
+  color: ${COLORS.time};
+  font-size: clamp(48px, 6vw, 74px);
+  line-height: 1;
+  margin-top: clamp(34px, 5vh, 48px);
 `;
 
 const ResultButton = styled.button`
-  min-width: 190px;
-  margin-top: 14px;
-  padding: 10px 28px 8px;
-  border-radius: 15px;
-  background: ${COLORS.outline};
+  min-width: min(320px, 64vw);
+  min-height: 74px;
+  margin-top: clamp(26px, 4vh, 38px);
+  padding: 8px 34px 10px;
+  border-radius: 7px;
+  background: #e399c1;
   color: #fff;
-  font-size: clamp(28px, 3vw, 46px);
-  box-shadow: 0 8px 22px rgba(250, 148, 192, 0.35);
+  font-size: clamp(34px, 4.2vw, 48px);
+  line-height: 1;
+
+  &:hover {
+    background: #df86b6;
+  }
 `;
 
 function formatClock(ms) {
@@ -425,12 +479,26 @@ export default function GamePage({ difficulty = 'NORMAL', onGameOver }) {
       </KeyGuide>
 
       {finished && (
-        <ResultOverlay>
-          <ResultTitle>{finished.success ? 'CLEAR!' : 'GAME OVER'}</ResultTitle>
-          <ResultMeta>{formatClock(finished.time)}</ResultMeta>
-          <ResultButton onClick={() => onGameOver?.(currentIndex, finished.time)}>
-            돌아가기
-          </ResultButton>
+        <ResultOverlay role="dialog" aria-modal="true" aria-label="게임 결과">
+          <ResultCard>
+            {finished.success ? (
+              <ResultTitleImage src="/assets/good.png" alt="잘했어요!" />
+            ) : (
+              <ResultTitle>GAME OVER</ResultTitle>
+            )}
+            <ResultHearts aria-label={`남은 라이프 ${finished.lives}개`}>
+              {[0, 1, 2].map((index) => (
+                <ResultHeart key={index} $active={index < finished.lives}>
+                  ♥
+                </ResultHeart>
+              ))}
+            </ResultHearts>
+            <ResultMeta>틀린 횟수 ({3 - finished.lives}/3)</ResultMeta>
+            <ResultTime>{formatClock(finished.time)}</ResultTime>
+            <ResultButton onClick={() => onGameOver?.(currentIndex, finished.time)}>
+              돌아가기 ♫
+            </ResultButton>
+          </ResultCard>
         </ResultOverlay>
       )}
     </Page>
