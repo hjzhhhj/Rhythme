@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-const NOTES = ['♩', '♪', '♫', '♬', '𝄞', '♭', '♯', '★', '✦', '·'];
+const NOTES = ['♩', '♩', '♫', '♬', '𝄞', '♭', '♯', '★', '✦', '·'];
 const COLORS = ['#fa94c0', '#99c5fc', '#95d5b4', '#bba4ee', '#ffda60', '#f9a8d4', '#86efac', '#93c5fd', '#c4b5fd'];
 
 const POSITIONS = [

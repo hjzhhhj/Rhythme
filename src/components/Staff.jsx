@@ -69,7 +69,7 @@ export default function Staff({ noteKey, feedback }) {
       <text
         x="55" y={STAFF_BOTTOM + 12}
         fontSize="130"
-        fontFamily="serif"
+        fontFamily="'Kyobo Handwriting 2025', serif"
         fill="#555"
         style={{ userSelect: 'none' }}
       >
