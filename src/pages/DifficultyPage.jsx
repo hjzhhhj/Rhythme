@@ -9,6 +9,7 @@ const Page = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 `;
 
@@ -23,63 +24,56 @@ const BgImg = styled.img`
 
 const TitleWrap = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  pointer-events: none;
   z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 8%;
+  left: 50%;
+  width: min(62vw, 740px);
+  height: 28%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  display: grid;
+  place-items: center;
 
-  @media (max-width: 640px) {
-    height: 35%;
+  @media (max-height: 620px) {
+    top: 5%;
+    height: 26%;
   }
 `;
 
 const TitleEllipse = styled.div`
   position: absolute;
-  width: 80%;
-  height: 200%;
+  width: 128%;
+  height: 180%;
   border-radius: 50%;
   background: radial-gradient(
     ellipse,
-    rgba(255, 255, 255, 0.92) 30%,
+    rgba(255, 255, 255, 0.92) 26%,
     rgba(255, 255, 255, 0) 70%
   );
   filter: blur(20px);
-  top: -30%;
 `;
 
 const TitleImg = styled.img`
-  position: absolute;
-  top: 10%;
-  left: 15%;
+  position: relative;
   z-index: 1;
-  width: 70%;
+  width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 50%;
-
-  @media (max-width: 640px) {
-    left: 5%;
-    width: 90%;
-    object-fit: contain;
-    object-position: center center;
-  }
+  object-fit: contain;
+  object-position: center;
 `;
 
 const Cards = styled.div`
   position: absolute;
-  top: 38%;
-  bottom: 10vh;
-  left: 0;
-  right: 0;
   z-index: 2;
-  display: flex;
-  gap: clamp(10px, 1.8vw, 28px);
+  top: 51%;
+  left: 50%;
+  width: min(86vw, 1060px);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: clamp(18px, 2.4vw, 32px);
   justify-content: center;
+
   align-items: center;
   align-content: center;
 
@@ -102,41 +96,28 @@ const Card = styled.button`
   border-radius: 20px;
   padding: 20px 14px 16px;
   color: #fff;
-  border: none;
-  cursor: pointer;
   background: ${({ $bg }) => $bg};
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transition:
     transform 0.18s,
     box-shadow 0.18s;
-  gap: 8px;
 
   &:hover {
-    transform: translateY(-10px) scale(1.06);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px) scale(1.035);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
   }
 
   &:active {
-    transform: translateY(2px) scale(0.96);
-  }
-
-  @media (max-width: 640px) {
-    width: calc(50% - 5px);
-    height: clamp(110px, 36vw, 160px);
-    padding: 12px 10px 10px;
-    border-radius: 16px;
+    transform: translateY(2px) scale(0.97);
   }
 `;
 
 const DiffLabel = styled.span`
   font-family: var(--font-display);
-  font-size: clamp(18px, 2.5vw, 38px);
+  font-size: clamp(20px, min(2.3vw, 4.2vh), 34px);
+  line-height: 1;
   letter-spacing: 1px;
   text-align: center;
-
-  @media (max-width: 640px) {
-    font-size: clamp(14px, 4.5vw, 22px);
-  }
 `;
 
 const DiffIcon = styled.span`
@@ -146,15 +127,11 @@ const DiffIcon = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media (max-width: 640px) {
-    font-size: clamp(36px, 11vw, 56px);
-  }
 `;
 
 const DiffBest = styled.span`
   font-family: var(--font-body);
-  font-size: clamp(10px, 1.1vw, 14px);
+  font-size: clamp(10px, min(1vw, 2vh), 13px);
   opacity: 0.9;
   background: rgba(255, 255, 255, 0.28);
   border-radius: 8px;
@@ -165,21 +142,20 @@ const DiffBest = styled.span`
 
 const BackBtn = styled.button`
   position: absolute;
-  bottom: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 2;
+  left: 50%;
+  bottom: 4%;
+  transform: translateX(-50%);
   background: none;
-  border: none;
   color: rgba(255, 255, 255, 0.85);
   font-family: var(--font-display);
-  font-size: clamp(14px, 1.8vw, 22px);
+  font-size: clamp(18px, min(2vw, 3.6vh), 28px);
+  line-height: 1;
   padding: 8px 20px;
   border-radius: 8px;
-  cursor: pointer;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  transition: color 0.15s;
   white-space: nowrap;
+  transition: color 0.15s;
 
   &:hover {
     color: #fff;
@@ -194,10 +170,7 @@ export default function DifficultyPage({ onSelect, onBack }) {
       <BgImg src="/assets/bg-difficulty.png" alt="" aria-hidden="true" />
       <TitleWrap>
         <TitleEllipse aria-hidden="true" />
-        <TitleImg
-          src="/assets/title-difficulty.png"
-          alt="난이도를 선택하세요!"
-        />
+        <TitleImg src="/assets/title-difficulty.png" alt="난이도를 선택하세요!" />
       </TitleWrap>
       <Cards>
         {DIFFICULTIES.map((diff) => {
