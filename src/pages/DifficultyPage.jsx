@@ -74,11 +74,15 @@ const Cards = styled.div`
   gap: clamp(18px, 2.4vw, 32px);
   justify-content: center;
 
-  @media (max-width: 760px) {
-    top: 42%;
-    width: min(76vw, 460px);
-    grid-template-columns: repeat(2, minmax(120px, 1fr));
-    gap: 14px;
+  align-items: center;
+  align-content: center;
+
+  @media (max-width: 640px) {
+    top: 35%;
+    bottom: 8vh;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 20px;
   }
 `;
 
@@ -87,10 +91,10 @@ const Card = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 0;
-  aspect-ratio: 0.88;
-  border-radius: 8px;
-  padding: clamp(12px, 2vh, 20px) 12px;
+  width: clamp(150px, 18vw, 280px);
+  height: clamp(190px, 26vw, 370px);
+  border-radius: 20px;
+  padding: 20px 14px 16px;
   color: #fff;
   background: ${({ $bg }) => $bg};
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -117,9 +121,8 @@ const DiffLabel = styled.span`
 `;
 
 const DiffIcon = styled.span`
-  font-family: var(--font-musical);
-  font-size: clamp(58px, min(7vw, 12vh), 116px);
-  line-height: 0.9;
+  font-size: clamp(60px, 9vw, 160px);
+  line-height: 1;
   flex: 1;
   display: flex;
   align-items: center;
