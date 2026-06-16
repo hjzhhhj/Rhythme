@@ -90,6 +90,7 @@ const CurrentBox = styled.rect`
 `;
 
 const NoteGroup = styled.g`
+  cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
   transform-box: fill-box;
   transform-origin: center;
   transition:
@@ -141,7 +142,7 @@ function LedgerLines({ x, step, color, opacity }) {
   ));
 }
 
-function NoteShape({ noteKey, x, color, opacity, active, feedback }) {
+function NoteShape({ noteKey, x, color, opacity, active, feedback, onClick }) {
   const note = NOTE_DATA[noteKey];
   if (!note) return null;
 
@@ -149,12 +150,25 @@ function NoteShape({ noteKey, x, color, opacity, active, feedback }) {
   const stemUp = note.staffStep < 3;
   const stemX = stemUp ? x + 20 : x - 20;
   const stemEndY = stemUp ? y - 96 : y + 96;
+  const label = `${note.name}${note.accidental || ''} 음 듣기`;
+
+  const handleKeyDown = (event) => {
+    if (!onClick || (event.key !== 'Enter' && event.key !== ' ')) return;
+    event.preventDefault();
+    onClick(noteKey);
+  };
 
   return (
     <NoteGroup
       $active={active}
       $feedback={feedback}
+      $clickable={Boolean(onClick)}
       opacity={opacity}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      aria-label={onClick ? label : undefined}
+      onClick={onClick ? () => onClick(noteKey) : undefined}
+      onKeyDown={handleKeyDown}
       style={{ transformOrigin: `${x}px ${y}px` }}
     >
       <LedgerLines x={x} step={note.staffStep} color={color} opacity={1} />
@@ -193,7 +207,7 @@ function NoteShape({ noteKey, x, color, opacity, active, feedback }) {
   );
 }
 
-export default function GameStaff({ sequence, currentIndex, feedback, results }) {
+export default function GameStaff({ sequence, currentIndex, feedback, results, onNoteClick }) {
   const displayNotes = getDisplayNotes(sequence, currentIndex);
 
   return (
@@ -235,6 +249,7 @@ export default function GameStaff({ sequence, currentIndex, feedback, results })
               opacity={getOpacity(item.offset)}
               active={active}
               feedback={feedback}
+              onClick={onNoteClick}
             />
           );
         })}

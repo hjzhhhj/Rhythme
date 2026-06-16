@@ -26,16 +26,16 @@ const KEY_SOUND_NOTES = {
 };
 const NOTE_SOUND_FILES = {
   C4: 'C4.mp3',
-  'C#4': 'C#4.mp3',
+  'C#4': 'Cs4.mp3',
   D4: 'D4.mp3',
-  'D#4': 'D#4.mp3',
+  'D#4': 'Ds4.mp3',
   E4: 'E4.mp3',
   F4: 'F4.mp3',
-  'F#4': 'F#4.mp3',
+  'F#4': 'Fs4.mp3',
   G4: 'G4.mp3',
-  'G#4': 'G#4.mp3',
+  'G#4': 'Gs4.mp3',
   A4: 'A4.mp3',
-  'A#4': 'A#4.mp3',
+  'A#4': 'As4.mp3',
   B4: 'B4.mp3',
   C5: 'C5.mp3',
   D5: 'D4.mp3',
@@ -43,6 +43,10 @@ const NOTE_SOUND_FILES = {
   F5: 'F4.mp3',
   G5: 'G4.mp3',
 };
+
+function getSoundSrc(file) {
+  return `${SOUND_BASE}/${encodeURIComponent(file)}`;
+}
 
 const COLORS = {
   time: '#BBA4EE',
@@ -360,11 +364,24 @@ export default function GamePage({ difficulty = 'NORMAL', onGameOver }) {
 
   useEffect(() => {
     Object.entries(NOTE_SOUND_FILES).forEach(([note, file]) => {
-      const audio = new Audio(`${SOUND_BASE}/${file}`);
+      const audio = new Audio(getSoundSrc(file));
       audio.preload = 'auto';
       audio.volume = SOUND_VOLUME;
       audioRefs.current[note] = audio;
     });
+  }, []);
+
+  const playNoteSound = useCallback((noteKey) => {
+    const note = NOTE_DATA[noteKey];
+    const soundNote = note?.sound || noteKey;
+    const file = NOTE_SOUND_FILES[soundNote];
+    if (!file) return;
+
+    const audio = audioRefs.current[soundNote] ?? new Audio(getSoundSrc(file));
+    audioRefs.current[soundNote] = audio;
+    audio.volume = SOUND_VOLUME;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
   }, []);
 
   const playKeySound = useCallback((pressedKey, currentNoteKey) => {
@@ -376,7 +393,7 @@ export default function GamePage({ difficulty = 'NORMAL', onGameOver }) {
     const file = NOTE_SOUND_FILES[soundNote];
     if (!file) return;
 
-    const audio = audioRefs.current[soundNote] ?? new Audio(`${SOUND_BASE}/${file}`);
+    const audio = audioRefs.current[soundNote] ?? new Audio(getSoundSrc(file));
     audioRefs.current[soundNote] = audio;
     audio.volume = SOUND_VOLUME;
     audio.currentTime = 0;
@@ -450,6 +467,7 @@ export default function GamePage({ difficulty = 'NORMAL', onGameOver }) {
             currentIndex={currentIndex}
             feedback={feedback}
             results={results}
+            onNoteClick={playNoteSound}
           />
         </StaffZone>
 
